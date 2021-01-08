@@ -1,9 +1,11 @@
 import React from 'react'
+import Footer from '../Footer'
 import { ReactComponent as Main } from './home.svg'
 import './styles.css'
 
 const Home: React.FC = () => {
   return (
+    <>
     <div className="home-container">
       <div className="home-content">
         <div className="home-actions">
@@ -24,6 +26,8 @@ const Home: React.FC = () => {
         </div>
       </div>
     </div>
+    <Footer />
+    </>
   )
 }
 
