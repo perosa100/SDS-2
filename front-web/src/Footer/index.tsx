@@ -8,7 +8,7 @@ const Footer: React.FC = () => {
   return (
     <footer className="main-footer">
       App desenvolvido durante a 2ª ed. do evento Semana DevSuperior
-      <div className="foooter-icons">
+      <div className="footer-icons">
         <a href="https://www.youtube.com/channel/UCrQVLMKECMHVijKAuHIZ-Cg">
           <Youtube />
         </a>
