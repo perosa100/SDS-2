@@ -2,23 +2,24 @@ import React from 'react'
 import './styles.css'
 import { ReactComponent as Pizza } from './Pizza.svg'
 import { Product } from './types'
+import { formaterPrice } from './helpers'
 
 type Props = {
   product: Product
+  onSelectProduct: (product: Product) => void
+  isSelected: boolean
 }
 
-function formaterPrice(price: number) {
-  const formatter = new Intl.NumberFormat('pt-BR', {
-    style: 'currency',
-    currency: 'BRL',
-    maximumFractionDigits: 2
-  })
-  return formatter.format(price)
-}
-
-const ProductCard: React.FC<Props> = ({ product }: Props) => {
+const ProductCard: React.FC<Props> = ({
+  product,
+  onSelectProduct,
+  isSelected
+}: Props) => {
   return (
-    <div className="order-card-container">
+    <div
+      className={`order-card-container ${isSelected ? 'selected' : ''}`}
+      onClick={() => onSelectProduct(product)}
+    >
       <h3 className="order-card-title">{product.name}</h3>
       <img
         src={product.imageUri}
