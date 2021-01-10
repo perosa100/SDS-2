@@ -9,11 +9,7 @@ const inicialPosition = {
   lat: 51.505,
   lng: -0.09
 }
-const options = [
-  { value: 'chocolate', label: 'Chocolate' },
-  { value: 'strawberry', label: 'Strawberry' },
-  { value: 'vanilla', label: 'Vanilla' }
-]
+
 type Place = {
   label?: string
   value?: string

@@ -1,6 +1,5 @@
 import React from 'react'
 import './styles.css'
-import { ReactComponent as Pizza } from './Pizza.svg'
 import { formaterPrice } from './helpers'
 
 type Props = {
