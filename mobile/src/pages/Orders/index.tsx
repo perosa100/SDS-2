@@ -1,21 +1,54 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
-import { Text, View, Image, StyleSheet } from 'react-native'
-import { RectButton, ScrollView } from 'react-native-gesture-handler'
-import Logo from '../assets/deliveryman.png'
-import Header from '../../components/Header'
+import { Alert, StyleSheet, Text } from 'react-native'
+import {
+  RectButton,
+  ScrollView,
+  TouchableWithoutFeedback
+} from 'react-native-gesture-handler'
 import OrderCard from '../OrderCard'
+import { fetchOrders } from '../../services/api'
+import { Order } from '../../type'
+import { useIsFocused, useNavigation } from '@react-navigation/native'
 
-const Orders: React.FC = () => {
-  const handleOnPress = () => {}
+const Orders = () => {
+  const navigation = useNavigation()
+  const [orders, setOrders] = useState<Order[]>([])
+  const [loading, setloading] = useState(false)
+  const isFocused = useIsFocused()
+
+  const fechtData = () => {
+    setloading(true)
+    fetchOrders()
+      .then((response) => setOrders(response.data))
+      .catch((error) => Alert.alert('Houve um erro ao buscar os pedidos'))
+      .finally(() => setloading(false))
+  }
+
+  useEffect(() => {
+    if (isFocused) {
+      fechtData()
+    }
+  }, [isFocused])
+
+  const handleOnPress = (order: Order) => {
+    navigation.navigate('OrderDetails', { order })
+  }
   return (
     <>
       <ScrollView style={styles.container}>
-        <OrderCard />
-        <OrderCard />
-        <OrderCard />
-        <OrderCard />
-        <OrderCard />
+        {loading ? (
+          <Text> Buscando pedidos</Text>
+        ) : (
+          orders.map((order) => (
+            <TouchableWithoutFeedback
+              key={order.id}
+              onPress={() => handleOnPress(order)}
+            >
+              <OrderCard order={order} />
+            </TouchableWithoutFeedback>
+          ))
+        )}
       </ScrollView>
     </>
   )
@@ -23,8 +56,7 @@ const Orders: React.FC = () => {
 
 const styles = StyleSheet.create({
   container: {
-    paddingRight: '5%',
-    paddingLeft: '5%'
+    flex: 1
   }
 })
 

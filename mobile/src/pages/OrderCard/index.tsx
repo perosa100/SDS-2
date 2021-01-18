@@ -1,18 +1,27 @@
 import React from 'react'
 import { StyleSheet, View, Text } from 'react-native'
+import { Order } from '../../type'
+import { dateFromNow } from '../../utils/formatDate'
+import { formatPrice } from '../../utils/formatPrice'
 
-const OrderCard: React.FC = () => {
+type Props = {
+  order: Order
+}
+
+const OrderCard = ({ order }: Props) => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.orderName}>Pedido 1</Text>
-        <Text style={styles.orderPrice}>R$ 50,00</Text>
+        <Text style={styles.orderName}>Pedido {order.id}</Text>
+        <Text style={styles.orderPrice}>{order.total}</Text>
       </View>
-      <Text style={styles.text}>há 30min.</Text>
+      <Text style={styles.text}>{dateFromNow(order.moment)}</Text>
       <View style={styles.productsList}>
-        <Text style={styles.text}>Calabresa</Text>
-        <Text style={styles.text}>Catupiry</Text>
-        <Text style={styles.text}>Bacon</Text>
+        {order.products.map((product) => (
+          <Text key={product.id} style={styles.text}>
+            {product.name}
+          </Text>
+        ))}
       </View>
     </View>
   )
@@ -43,7 +52,7 @@ const styles = StyleSheet.create({
     lineHeight: 19,
     letterSpacing: -0.24,
     color: '#9E9E9E',
-    fontFamily: 'OpenSans_400Regular'
+    fontFamily: 'OpenSans-Regular'
   },
   orderName: {
     fontWeight: 'bold',
@@ -51,7 +60,7 @@ const styles = StyleSheet.create({
     lineHeight: 25,
     letterSpacing: -0.24,
     color: '#263238',
-    fontFamily: 'OpenSans_700Bold'
+    fontFamily: 'OpenSans-Bold'
   },
   orderPrice: {
     fontWeight: 'bold',
@@ -60,7 +69,7 @@ const styles = StyleSheet.create({
     textAlign: 'right',
     letterSpacing: -0.24,
     color: '#DA5C5C',
-    fontFamily: 'OpenSans_700Bold'
+    fontFamily: 'OpenSans-Bold'
   },
   productsList: {
     borderTopColor: '#E6E6E6',

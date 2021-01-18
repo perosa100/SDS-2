@@ -1,8 +1,6 @@
 import 'react-native-gesture-handler'
 import React from 'react'
 import { StyleSheet, View } from 'react-native'
-import Header from './src/components/Header'
-import Home from './src/pages/Home'
 import Routes from './src/Routes'
 
 const App = () => {
